@@ -110,6 +110,71 @@ export default function RoadmapPage() {
         )}
       </div>
 
+      {/* Agent/Task Outputs: Each in its own box for MVP clarity */}
+      {/* These are the final answers from each CrewAI agent/task, as returned by the backend. Always shown, even if empty. */}
+      <div className="space-y-8 mb-12">
+        <div>
+          <h2 className="text-xl font-semibold text-blue-300 mb-2">Skill Gap Interpreter Output</h2>
+          <div className="prose prose-invert max-w-none bg-gray-900/80 rounded-xl p-4 text-base leading-relaxed whitespace-pre-line overflow-x-auto" style={{fontFamily: fonts.primary}}>
+            {roadmap.gap_analysis_output && roadmap.gap_analysis_output.startsWith('No output generated') ? (
+              <span className="text-gray-400 italic">{roadmap.gap_analysis_output}</span>
+            ) : (
+              roadmap.gap_analysis_output
+            )}
+          </div>
+        </div>
+        <div>
+          <h2 className="text-xl font-semibold text-emerald-300 mb-2">Learning Style Analyst Output</h2>
+          <div className="prose prose-invert max-w-none bg-gray-900/80 rounded-xl p-4 text-base leading-relaxed whitespace-pre-line overflow-x-auto" style={{fontFamily: fonts.primary}}>
+            {roadmap.learning_profile_output && roadmap.learning_profile_output.startsWith('No output generated') ? (
+              <span className="text-gray-400 italic">{roadmap.learning_profile_output}</span>
+            ) : (
+              roadmap.learning_profile_output
+            )}
+          </div>
+        </div>
+        <div>
+          <h2 className="text-xl font-semibold text-purple-300 mb-2">Learning Path Architect Output</h2>
+          <div className="prose prose-invert max-w-none bg-gray-900/80 rounded-xl p-4 text-base leading-relaxed whitespace-pre-line overflow-x-auto" style={{fontFamily: fonts.primary}}>
+            {roadmap.curriculum_design_output && roadmap.curriculum_design_output.startsWith('No output generated') ? (
+              <span className="text-gray-400 italic">{roadmap.curriculum_design_output}</span>
+            ) : (
+              roadmap.curriculum_design_output
+            )}
+          </div>
+        </div>
+        <div>
+          <h2 className="text-xl font-semibold text-emerald-400 mb-2">Content Curator Output</h2>
+          <div className="prose prose-invert max-w-none bg-gray-900/80 rounded-xl p-4 text-base leading-relaxed whitespace-pre-line overflow-x-auto" style={{fontFamily: fonts.primary}}>
+            {roadmap.resource_discovery_output && roadmap.resource_discovery_output.startsWith('No output generated') ? (
+              <span className="text-gray-400 italic">{roadmap.resource_discovery_output}</span>
+            ) : (
+              roadmap.resource_discovery_output
+            )}
+          </div>
+        </div>
+        <div>
+          <h2 className="text-xl font-semibold text-yellow-300 mb-2">AI Content Creator Output</h2>
+          <div className="prose prose-invert max-w-none bg-gray-900/80 rounded-xl p-4 text-base leading-relaxed whitespace-pre-line overflow-x-auto" style={{fontFamily: fonts.primary}}>
+            {roadmap.content_generation_output && roadmap.content_generation_output.startsWith('No output generated') ? (
+              <span className="text-gray-400 italic">{roadmap.content_generation_output}</span>
+            ) : (
+              roadmap.content_generation_output
+            )}
+          </div>
+        </div>
+        <div>
+          <h2 className="text-xl font-semibold text-pink-300 mb-2">Checkpoint Creator Output</h2>
+          <div className="prose prose-invert max-w-none bg-gray-900/80 rounded-xl p-4 text-base leading-relaxed whitespace-pre-line overflow-x-auto" style={{fontFamily: fonts.primary}}>
+            {roadmap.assessment_design_output && roadmap.assessment_design_output.startsWith('No output generated') ? (
+              <span className="text-gray-400 italic">{roadmap.assessment_design_output}</span>
+            ) : (
+              roadmap.assessment_design_output
+            )}
+          </div>
+        </div>
+      </div>
+
       {/* Skill Gaps */}
       {roadmap.skill_gaps && (
         <div className="mb-8">
@@ -161,6 +226,8 @@ export default function RoadmapPage() {
           ))}
         </div>
       )}
+
+       
     </div>
   );
 } 
