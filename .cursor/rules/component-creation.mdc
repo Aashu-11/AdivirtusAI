@@ -1,0 +1,249 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Component Creation Rules for Adivirtus AI
+
+## Frontend Component Structure
+
+When creating new React components for Adivirtus AI, follow this structure:
+
+### 1. Component File Structure
+```typescript
+'use client'  // Always add for client components
+
+import { useState, useEffect } from 'react'
+import { motion } from 'framer-motion'
+import { IconName } from 'lucide-react'  // Use lucide-react for icons
+import { tw, utils, colors, components } from '@/config/design-system'
+import { TypeFromTypes } from '@/types/[appropriate-type-file]'
+import { serviceFromServices } from '@/services/[appropriate-service]'
+
+interface ComponentNameProps {
+  // Define all props with TypeScript
+  required: string
+  optional?: number
+  children?: React.ReactNode
+}
+
+export default function ComponentName({ required, optional = 0 }: ComponentNameProps) {
+  // Component logic
+}
+```
+
+### 2. Design System Usage
+```typescript
+// ALWAYS use the design system for styling
+<div className={tw.bg.card}>  // NOT className="bg-black"
+<h1 className={tw.typography.mainHeading}>  // NOT className="text-3xl font-bold"
+<p className={tw.text.secondary}>  // NOT className="text-gray-400"
+
+// For dynamic classes, use utils.cn
+<div className={utils.cn(
+  tw.bg.card,
+  "custom-class",
+  isActive && tw.border.blue
+)}>
+
+// For charts/D3, use color values
+<Chart color={colors.blue.primary} />  // NOT color="#3B82F6"
+```
+
+### 3. Animation Patterns
+```typescript
+// Container animations
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      duration: 0.6,
+      staggerChildren: 0.1
+    }
+  }
+}
+
+// Card animations
+const cardVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    transition: { duration: 0.5 }
+  }
+}
+
+// Usage
+<motion.div
+  variants={containerVariants}
+  initial="hidden"
+  animate="visible"
+>
+  <motion.div variants={cardVariants}>
+    Content
+  </motion.div>
+</motion.div>
+```
+
+### 4. Loading States
+```typescript
+if (loading) {
+  return (
+    <div className={utils.cn(
+      "p-8 rounded-3xl backdrop-blur-xl border border-gray-600/30 text-center",
+      tw.bg.card
+    )}>
+      <RefreshCw className="w-12 h-12 text-gray-500 mx-auto mb-4 animate-spin" />
+      <h3 className={utils.cn('text-lg font-medium mb-2', tw.text.primary)}>
+        Loading...
+      </h3>
+    </div>
+  )
+}
+```
+
+### 5. Empty States
+```typescript
+if (!data || data.length === 0) {
+  return (
+    <div className="p-8 rounded-3xl backdrop-blur-xl border border-gray-600/30 text-center"
+         style={{ background: 'rgba(10, 10, 12, 0.7)' }}>
+      <IconName className="w-12 h-12 text-gray-500 mx-auto mb-4" />
+      <h3 className={utils.cn('text-lg font-medium mb-2', tw.text.primary)}>
+        No Data Available
+      </h3>
+      <p className={utils.cn('text-sm', tw.text.secondary)}>
+        {contextualMessage}
+      </p>
+    </div>
+  )
+}
+```
+
+### 6. Error Handling
+```typescript
+const [error, setError] = useState<string | null>(null)
+
+try {
+  const data = await serviceCall()
+} catch (err) {
+  console.error('Error in ComponentName:', err)
+  setError(err instanceof Error ? err.message : 'An error occurred')
+}
+
+if (error) {
+  return (
+    <div className={utils.cn(
+      "p-4 rounded-xl border",
+      tw.bgAccent.rose,
+      tw.border.rose
+    )}>
+      <p className={tw.text.rose}>{error}</p>
+    </div>
+  )
+}
+```
+
+## Component Categories
+
+### 1. Dashboard Components
+- Located in: `frontend/src/components/hr-dashboard/`
+- Must include: Loading states, error handling, data visualization
+- Use consistent card styling with `tw.bg.card`
+
+### 2. Assessment Components  
+- Located in: `frontend/src/components/assessment/`
+- Must handle: Multi-step flows, progress tracking, validation
+
+### 3. UI Components
+- Located in: `frontend/src/components/ui/`
+- Should be: Reusable, well-documented, have Storybook stories
+
+### 4. Page Components
+- Located in: `frontend/src/app/[page-name]/page.tsx`
+- Must include: Authentication check, layout wrapper, metadata
+
+## Data Fetching Patterns
+
+### 1. Client-Side Fetching
+```typescript
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      setLoading(true)
+      const data = await serviceFunction(params)
+      setData(data)
+    } catch (error) {
+      setError(error.message)
+    } finally {
+      setLoading(false)
+    }
+  }
+  
+  fetchData()
+}, [dependencies])
+```
+
+### 2. Server Components
+```typescript
+// In app directory pages
+export default async function Page() {
+  const supabase = createClient()
+  const { data, error } = await supabase
+    .from('table_name')
+    .select('*')
+    
+  if (error) {
+    // Handle error
+  }
+  
+  return <ClientComponent data={data} />
+}
+```
+
+## Responsive Design
+
+Always implement responsive design:
+```typescript
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+  {/* Mobile: 1 column, Tablet: 2 columns, Desktop: 3 columns */}
+</div>
+
+<h1 className="text-2xl md:text-3xl lg:text-4xl">
+  {/* Responsive text sizing */}
+</h1>
+
+<div className="p-4 md:p-6 lg:p-8">
+  {/* Responsive padding */}
+</div>
+```
+
+## TypeScript Requirements
+
+1. Always define interfaces for props
+2. Use proper types from `/types` directory
+3. Avoid `any` type - use `unknown` if type is truly unknown
+4. Export types that might be reused
+
+## Testing Requirements
+
+For each component, create:
+1. Unit tests with React Testing Library
+2. Integration tests for API calls
+3. Visual regression tests for UI components
+
+## Accessibility
+
+1. Use semantic HTML elements
+2. Add proper ARIA labels
+3. Ensure keyboard navigation works
+4. Test with screen readers
+5. Maintain proper color contrast ratios
+
+## Performance
+
+1. Use React.memo for expensive components
+2. Implement lazy loading for heavy components
+3. Optimize images with Next.js Image component
+4. Use dynamic imports for code splitting

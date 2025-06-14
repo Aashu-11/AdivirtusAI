@@ -1,0 +1,428 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# API Integration Patterns for Adivirtus AI
+
+## Frontend API Integration
+
+### 1. Service Layer Structure
+Create services in `frontend/src/services/` directory:
+
+```typescript
+// frontend/src/services/[feature-name].ts
+import { createClient } from '@/utils/supabase/client'
+
+export const featureService = {
+  async getItems(params?: FilterParams): Promise<Item[]> {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/endpoint/`, {
+      headers: {
+        'Authorization': `Bearer ${await getAuthToken()}`,
+        'Content-Type': 'application/json',
+      }
+    })
+    
+    if (!response.ok) {
+      throw new Error(`Failed to fetch items: ${response.statusText}`)
+    }
+    
+    return response.json()
+  },
+
+  async createItem(data: CreateItemDto): Promise<Item> {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/endpoint/`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${await getAuthToken()}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data)
+    })
+    
+    if (!response.ok) {
+      const error = await response.json()
+      throw new Error(error.message || 'Failed to create item')
+    }
+    
+    return response.json()
+  }
+}
+```
+
+### 2. Next.js API Routes
+For frontend API routes in `app/api/`:
+
+```typescript
+// app/api/[feature]/[action]/route.ts
+import { NextRequest, NextResponse } from 'next/server'
+import { createClient } from '@/utils/supabase/server'
+
+export async function GET(request: NextRequest) {
+  try {
+    const supabase = createClient()
+    
+    // Verify authentication
+    const { data: { user }, error: authError } = await supabase.auth.getUser()
+    if (authError || !user) {
+      return NextResponse.json(
+        { error: 'Unauthorized' },
+        { status: 401 }
+      )
+    }
+    
+    // Your logic here
+    const { data, error } = await supabase
+      .from('table_name')
+      .select('*')
+      .eq('user_id', user.id)
+    
+    if (error) {
+      return NextResponse.json(
+        { error: error.message },
+        { status: 500 }
+      )
+    }
+    
+    return NextResponse.json(data)
+  } catch (error) {
+    console.error('API Error:', error)
+    return NextResponse.json(
+      { error: 'Internal server error' },
+      { status: 500 }
+    )
+  }
+}
+
+export async function POST(request: NextRequest) {
+  try {
+    const body = await request.json()
+    const supabase = createClient()
+    
+    // Validate input
+    if (!body.requiredField) {
+      return NextResponse.json(
+        { error: 'Missing required field' },
+        { status: 400 }
+      )
+    }
+    
+    // Process request
+    const result = await processData(body)
+    
+    return NextResponse.json(result)
+  } catch (error) {
+    return NextResponse.json(
+      { error: error.message },
+      { status: 500 }
+    )
+  }
+}
+```
+
+## Backend Django API Patterns
+
+### 1. View Structure
+```python
+# backend/app_name/views.py
+from rest_framework.decorators import api_view, authentication_classes
+from rest_framework.response import Response
+from rest_framework import status
+from .authentication import SupabaseAuthentication
+from .serializers import ItemSerializer
+import logging
+
+logger = logging.getLogger(__name__)
+
+@api_view(['GET', 'POST'])
+@authentication_classes([SupabaseAuthentication])
+def item_endpoint(request):
+    """
+    GET: Retrieve items for the authenticated user
+    POST: Create a new item
+    """
+    try:
+        if request.method == 'GET':
+            # Get query parameters
+            filter_param = request.query_params.get('filter', None)
+            
+            # Fetch from Supabase
+            items = fetch_items_from_supabase(
+                user_id=request.user.id,
+                filter_param=filter_param
+            )
+            
+            # Serialize and return
+            serializer = ItemSerializer(items, many=True)
+            return Response(serializer.data)
+        
+        elif request.method == 'POST':
+            # Validate input
+            serializer = ItemSerializer(data=request.data)
+            if not serializer.is_valid():
+                return Response(
+                    {'error': 'Invalid data', 'details': serializer.errors},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+            
+            # Process and save
+            item = create_item_in_supabase(
+                user_id=request.user.id,
+                data=serializer.validated_data
+            )
+            
+            return Response(
+                ItemSerializer(item).data,
+                status=status.HTTP_201_CREATED
+            )
+            
+    except Exception as e:
+        logger.error(f"Error in item_endpoint: {str(e)}")
+        return Response(
+            {'error': 'Internal server error', 'details': str(e)},
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR
+        )
+```
+
+### 2. Serializer Patterns
+```python
+# backend/app_name/serializers.py
+from rest_framework import serializers
+
+class ItemSerializer(serializers.Serializer):
+    id = serializers.UUIDField(read_only=True)
+    name = serializers.CharField(max_length=200)
+    description = serializers.CharField(allow_blank=True)
+    value = serializers.DecimalField(max_digits=10, decimal_places=2)
+    status = serializers.ChoiceField(choices=['active', 'inactive'])
+    created_at = serializers.DateTimeField(read_only=True)
+    
+    def validate_name(self, value):
+        """Custom validation for name field"""
+        if len(value) < 3:
+            raise serializers.ValidationError("Name must be at least 3 characters")
+        return value
+    
+    def validate(self, data):
+        """Object-level validation"""
+        if data.get('status') == 'active' and not data.get('value'):
+            raise serializers.ValidationError("Active items must have a value")
+        return data
+```
+
+### 3. URL Patterns
+```python
+# backend/app_name/urls.py
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    # RESTful endpoints
+    path('items/', views.item_list, name='item_list'),
+    path('items/<uuid:item_id>/', views.item_detail, name='item_detail'),
+    path('items/<uuid:item_id>/action/', views.item_action, name='item_action'),
+    
+    # Bulk operations
+    path('items/bulk-create/', views.bulk_create_items, name='bulk_create_items'),
+    path('items/bulk-update/', views.bulk_update_items, name='bulk_update_items'),
+    
+    # Analytics endpoints
+    path('items/analytics/', views.item_analytics, name='item_analytics'),
+    path('items/export/', views.export_items, name='export_items'),
+]
+```
+
+## Error Handling Standards
+
+### Frontend Error Handling
+```typescript
+// Consistent error structure
+interface APIError {
+  error: string
+  details?: string
+  code?: string
+  field_errors?: Record<string, string[]>
+}
+
+// Error handler utility
+export async function handleAPIError(response: Response): Promise<never> {
+  let errorData: APIError
+  
+  try {
+    errorData = await response.json()
+  } catch {
+    errorData = { error: `HTTP ${response.status}: ${response.statusText}` }
+  }
+  
+  // Log to monitoring service
+  console.error('API Error:', errorData)
+  
+  // Throw structured error
+  throw new APIError(errorData.error, errorData.code, errorData.details)
+}
+```
+
+### Backend Error Responses
+```python
+# Consistent error format
+def error_response(message, code=None, details=None, status_code=400):
+    error_data = {
+        'error': message,
+        'code': code or 'GENERIC_ERROR'
+    }
+    
+    if details:
+        error_data['details'] = details
+        
+    return Response(error_data, status=status_code)
+
+# Usage
+return error_response(
+    'Validation failed',
+    code='VALIDATION_ERROR',
+    details={'field': ['Error message']},
+    status_code=400
+)
+```
+
+## API Security Best Practices
+
+### 1. Authentication Headers
+```typescript
+// Always include auth token
+headers: {
+  'Authorization': `Bearer ${token}`,
+  'X-Client-Version': process.env.NEXT_PUBLIC_APP_VERSION,
+  'X-Request-ID': generateRequestId(), // For tracing
+}
+```
+
+### 2. Input Validation
+```python
+# Always validate input data
+from django.core.validators import validate_email
+
+def validate_request_data(data):
+    required_fields = ['email', 'name', 'role']
+    
+    for field in required_fields:
+        if field not in data:
+            raise ValueError(f"Missing required field: {field}")
+    
+    # Type validation
+    if not isinstance(data['email'], str):
+        raise TypeError("Email must be a string")
+    
+    # Format validation
+    validate_email(data['email'])
+```
+
+### 3. Rate Limiting
+```python
+# Implement rate limiting
+from django.core.cache import cache
+from django.http import JsonResponse
+
+def rate_limit_check(request, limit=100, window=3600):
+    key = f"rate_limit:{request.user.id}"
+    count = cache.get(key, 0)
+    
+    if count >= limit:
+        return JsonResponse(
+            {'error': 'Rate limit exceeded'},
+            status=429
+        )
+    
+    cache.set(key, count + 1, window)
+    return None
+```
+
+## API Documentation
+
+### 1. Endpoint Documentation Template
+```python
+@api_view(['POST'])
+def create_assessment(request):
+    """
+    Create a new assessment for the authenticated user.
+    
+    Request Body:
+    {
+        "title": "string",
+        "type": "technical|soft_skills|domain",
+        "questions": [
+            {
+                "text": "string",
+                "skill_id": "string"
+            }
+        ]
+    }
+    
+    Response:
+    {
+        "id": "uuid",
+        "title": "string",
+        "status": "pending|completed",
+        "created_at": "datetime"
+    }
+    
+    Errors:
+    - 400: Invalid request data
+    - 401: Unauthorized
+    - 500: Internal server error
+    """
+```
+
+### 2. OpenAPI/Swagger Integration
+```python
+# Use drf-yasg for auto-documentation
+from drf_yasg.utils import swagger_auto_schema
+from drf_yasg import openapi
+
+@swagger_auto_schema(
+    operation_description="Create a new assessment",
+    request_body=AssessmentSerializer,
+    responses={
+        201: AssessmentSerializer,
+        400: 'Bad Request',
+        401: 'Unauthorized'
+    }
+)
+```
+
+## Testing API Endpoints
+
+### Frontend Testing
+```typescript
+// Mock service for testing
+export const mockFeatureService = {
+  getItems: jest.fn().mockResolvedValue([
+    { id: '1', name: 'Test Item' }
+  ]),
+  createItem: jest.fn().mockResolvedValue({
+    id: '2', name: 'New Item'
+  })
+}
+```
+
+### Backend Testing
+```python
+# backend/app_name/tests.py
+from django.test import TestCase
+from rest_framework.test import APIClient
+from unittest.mock import patch
+
+class ItemAPITestCase(TestCase):
+    def setUp(self):
+        self.client = APIClient()
+        self.auth_header = {'HTTP_AUTHORIZATION': 'Bearer test-token'}
+    
+    @patch('app_name.views.fetch_items_from_supabase')
+    def test_get_items(self, mock_fetch):
+        mock_fetch.return_value = [{'id': '1', 'name': 'Test'}]
+        
+        response = self.client.get('/api/items/', **self.auth_header)
+        
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.data), 1)
+```

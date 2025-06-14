@@ -1,0 +1,55 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Changelog Management Rules
+
+## When to Update the Changelog
+
+When instructed with "update changelog", follow these steps:
+
+1. Always add entries to the top of the CHANGELOG.md file under the most recent version:
+   ```markdown
+   # Changelog
+   
+   ## [NEW_VERSION] - SPECIFIED_DATE
+   
+   ### Added
+   - New feature 1
+   - New feature 2
+   
+   ## [PREVIOUS_VERSION] - PREVIOUS_DATE
+   ```
+
+2. Use the exact date specified by the user:
+   ```markdown
+   ## [1.1.1] - 2023-10-25  # Use the date mentioned by user
+   ```
+
+3. Organize changes into appropriate categories:
+   ```markdown
+   ### Added
+   - New features or capabilities
+   
+   ### Fixed
+   - Bug fixes and error corrections
+   
+   ### Changed
+   - Changes to existing functionality
+   
+   ### Removed
+   - Removed features or capabilities
+   
+   ### Security
+   - Security-related changes
+   ```
+
+4. Follow semantic versioning (MAJOR.MINOR.PATCH):
+   - MAJOR: Breaking changes (1.0.0 → 2.0.0)
+   - MINOR: New features, backward compatible (1.0.0 → 1.1.0)
+   - PATCH: Bug fixes, backward compatible (1.1.0 → 1.1.1)
+
+5. Make changelog updates in the same commit as code changes
+   - Both code and changelog should reflect the same changes
+   - This ensures the changelog accurately represents what's in each version

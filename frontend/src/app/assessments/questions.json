@@ -1,0 +1,504 @@
+{
+  "assessment": {
+    "title": "Adivirtus AI Onboarding Assessment",
+    "description": "This comprehensive assessment analyzes your unique learning preferences, cognitive patterns, and skill acquisition tendencies. Your responses will be used to create a hyper-personalized learning roadmap that aligns with your natural learning style, maximizing efficiency and effectiveness.",
+    "questions": [
+      {
+        "id": "Q1",
+        "parameter": "LearningStyle-Technical",
+        "type": "MCQ",
+        "prompt": "You need to master a new data analysis software for an upcoming project. How would you prefer to learn it?",
+        "options": [
+          { "text": "I'd prefer a video tutorial with screen recordings showing the interface, with color-coded highlights and visual cues pointing out important features, ideally with diagrams illustrating the workflow.", "value": "Visual" },
+          { "text": "I'd prefer a live webinar where an expert explains the logic and functionality verbally, with opportunities to ask questions and hear detailed explanations about how different features relate to each other.", "value": "Auditory" },
+          { "text": "I'd prefer a sandbox environment where I can immediately interact with the software, trying different features hands-on while completing guided practice exercises that let me experiment directly.", "value": "Kinesthetic" },
+          { "text": "I'd prefer comprehensive written documentation with step-by-step instructions that I can highlight, annotate, and reference while taking my own detailed notes about the process.", "value": "ReadWrite" }
+        ],
+        "presentation": "Render as radio buttons.",
+        "reasoning": "This question presents a workplace scenario requiring technical skill acquisition, making it directly relevant to corporate upskilling. Each option clearly distinguishes between visual (screen recording), auditory (verbal explanation), kinesthetic (hands-on practice), and reading/writing (documentation study) modalities in a professional context."
+      },
+      {
+        "id": "Q2",
+        "parameter": "LearningStyle-Creative",
+        "type": "MCQ",
+        "prompt": "When developing a new creative skill for a professional project, which approach would be most effective for you?",
+        "options": [
+          { "text": "Study high-quality visual examples and demonstrations, observe experts performing the skill, and use visual references and mood boards to guide my learning.", "value": "Visual" },
+          { "text": "Listen to detailed verbal descriptions of techniques and principles, participate in discussion-based learning sessions, and have processes explained verbally with emphasis on key terminology.", "value": "Auditory" },
+          { "text": "Immediately start hands-on practice with guided exercises, learn through physical trial-and-error, and develop muscle memory through repeated practical application.", "value": "Kinesthetic" },
+          { "text": "Begin with written tutorials and theory documents, take detailed notes on techniques and approaches, and follow written step-by-step guides while documenting my progress.", "value": "ReadWrite" }
+        ],
+        "presentation": "Render as radio buttons."
+      },
+      {
+        "id": "Q3",
+        "parameter": "HoneyMumford-Collaborative",
+        "type": "MCQ",
+        "prompt": "During a collaborative problem-solving session with unfamiliar colleagues, you typically:",
+        "options": [
+          { "text": "Take initiative and suggest immediate practical approaches", "value": "Activist" },
+          { "text": "Observe group dynamics and consider multiple perspectives before speaking", "value": "Reflector" },
+          { "text": "Focus on establishing clear conceptual frameworks for the discussion", "value": "Theorist" },
+          { "text": "Identify real-world constraints and guide solutions toward practical outcomes", "value": "Pragmatist" }
+        ],
+        "presentation": "Render as radio buttons."
+      },
+      {
+        "id": "Q4",
+        "parameter": "HoneyMumford-Individual",
+        "type": "MCQ",
+        "prompt": "When independently learning a complex subject outside your expertise, you're most likely to:",
+        "options": [
+          { "text": "Dive into practical exercises to gain hands-on experience quickly", "value": "Activist" },
+          { "text": "Gather various resources and perspectives before forming conclusions", "value": "Reflector" },
+          { "text": "Seek comprehensive understanding of underlying principles and models", "value": "Theorist" },
+          { "text": "Focus on applications and relevance to your specific goals", "value": "Pragmatist" }
+        ],
+        "presentation": "Render as radio buttons."
+      },
+      {
+        "id": "Q5",
+        "parameter": "PsychologicalSafety",
+        "type": "MCQ",
+        "prompt": "In learning environments, which condition is most essential for your optimal performance?",
+        "options": [
+          { "text": "Freedom to experiment and make mistakes without judgment or negative consequences", "value": "ExperimentalSafety" },
+          { "text": "Clear structure with explicit expectations, guidelines, and consistent feedback", "value": "StructuralClarity" },
+          { "text": "Collaborative atmosphere with opportunities for discussion and peer learning", "value": "CollaborativeSafety" },
+          { "text": "Control over my learning pace and direction with minimal supervision", "value": "AutonomousSafety" }
+        ],
+        "presentation": "Render as radio buttons."
+      },
+      {
+        "id": "Q6",
+        "parameter": "LearningStyle-Memory",
+        "type": "MCQ",
+        "prompt": "You need to memorize important technical specifications and procedures for a certification exam. Which approach would work best for you?",
+        "options": [
+          { "text": "Convert information into charts, mind maps, and color-coded visual hierarchies, using spatial arrangement and visual symbols to represent relationships between concepts.", "value": "Visual" },
+          { "text": "Create spoken mnemonics or rhythmic patterns, record yourself explaining key concepts and listen repeatedly, or discuss the material verbally in study groups.", "value": "Auditory" },
+          { "text": "Create physical flashcards that you can manipulate and sort, act out processes physically, or teach the material to someone else using demonstrations and interactive examples.", "value": "Kinesthetic" },
+          { "text": "Create structured written outlines and summaries, rewrite key information in your own words multiple times, and organize information into tables, lists, and definitions.", "value": "ReadWrite" }
+        ],
+        "presentation": "Render as radio buttons."
+      },
+      {
+        "id": "Q7",
+        "parameter": "Attention-Context",
+        "type": "MCQ",
+        "prompt": "In which learning context do you maintain focus and engagement most effectively?",
+        "options": [
+          { "text": "Short, intensive sessions with frequent breaks", "value": "Intensive" },
+          { "text": "Extended deep-dive sessions with minimal interruption", "value": "Immersive" },
+          { "text": "Varied activities addressing the same topic from different angles", "value": "Varied" },
+          { "text": "Interactive sessions with immediate application and feedback", "value": "Interactive" }
+        ],
+        "presentation": "Render as radio buttons."
+      },
+      {
+        "id": "Q8",
+        "parameter": "MediaPreference",
+        "type": "MCQ",
+        "prompt": "When comparing digital learning resources to traditional methods, you typically find:",
+        "options": [
+          { "text": "Digital resources with multimedia and interactivity enhance my understanding", "value": "DigitalPreference" },
+          { "text": "Traditional books and written materials lead to deeper comprehension", "value": "TraditionalPreference" },
+          { "text": "A combination works best, using different formats for different purposes", "value": "BlendedPreference" },
+          { "text": "Interactive content that requires engagement regardless of medium", "value": "InteractiveContentPreference" }
+        ],
+        "presentation": "Render as radio buttons."
+      },
+      {
+        "id": "Q9",
+        "parameter": "FeedbackUtilization",
+        "type": "MCQ",
+        "prompt": "When receiving feedback on your work, which approach helps you improve most effectively?",
+        "options": [
+          { "text": "Specific examples of what worked well and clear suggestions for changes", "value": "Specific" },
+          { "text": "Understanding underlying principles behind the feedback", "value": "Conceptual" },
+          { "text": "Opportunity to discuss and explore alternatives collaboratively", "value": "Dialogic" },
+          { "text": "Immediate chance to apply feedback and retry the task", "value": "Applied" }
+        ],
+        "presentation": "Render as radio buttons."
+      },
+      {
+        "id": "Q10",
+        "parameter": "CognitiveLoad",
+        "type": "audio",
+        "prompt": "Listen to this complex explanation, then select which element helped you understand best:",
+        "media": {
+          "type": "audio",
+          "url": "https://assets.example.com/complex_explanation.mp3",
+          "alt": "Audio explanation of a complex topic with multiple elements"
+        },
+        "options": [
+          { "text": "The analogies and visual descriptions provided", "value": "Analogical" },
+          { "text": "The logical structure and clear transitions", "value": "Structural" },
+          { "text": "The practical examples and applications mentioned", "value": "Practical" },
+          { "text": "The repeated emphasis on key points", "value": "Repetition" }
+        ],
+        "presentation": "Display an audio player followed by options as radio buttons."
+      },
+      {
+        "id": "Q11",
+        "parameter": "Learning-Adaptability",
+        "type": "MCQ",
+        "prompt": "When your preferred learning method isn't available, how do you typically respond?",
+        "options": [
+          { "text": "Quickly adapt and find alternative approaches", "value": "HighAdaptability" },
+          { "text": "Experience initial frustration but eventually adjust", "value": "MediumAdaptability" },
+          { "text": "Struggle significantly and seek to recreate preferred conditions", "value": "LowAdaptability" },
+          { "text": "Proactively prepare multiple learning strategies in advance", "value": "PreemptiveAdaptability" }
+        ],
+        "presentation": "Render as radio buttons."
+      },
+      {
+        "id": "Q12",
+        "parameter": "Learning-Speed",
+        "type": "interactive",
+        "prompt": "This interactive assessment measures your information processing speed across different modalities.",
+        "presentation": "Render the LearningSpeedTest component with visual, auditory, and text-based elements."
+      },
+      {
+        "id": "Q13",
+        "parameter": "Problem-Solution-Mapping",
+        "type": "image",
+        "prompt": "Study this diagram showing different approaches to solving a complex problem. Which pathway most resembles your natural approach?",
+        "media": {
+          "type": "image",
+          "url": "https://assets.example.com/problem_solving_pathways.jpg",
+          "alt": "Diagram showing different problem-solving approaches and pathways"
+        },
+        "options": [
+          { "text": "Path A: Break down into components, analyze each part, then synthesize (Analytical)", "value": "Analytical" },
+          { "text": "Path B: Start with known patterns, apply and adjust as needed (Pattern-Based)", "value": "Pattern" },
+          { "text": "Path C: Generate multiple solutions, test and iterate rapidly (Experimental)", "value": "Experimental" },
+          { "text": "Path D: Define ideal outcome, work backward to current state (Goal-Oriented)", "value": "GoalOriented" }
+        ],
+        "presentation": "Display the image on top, then render options as radio buttons."
+      },
+      {
+        "id": "Q14",
+        "parameter": "Knowledge-Transfer",
+        "type": "MCQ",
+        "prompt": "When applying knowledge from one domain to solve problems in another area, you typically:",
+        "options": [
+          { "text": "Look for underlying principles that connect both domains", "value": "Principled" },
+          { "text": "Adapt specific techniques and modify them for the new context", "value": "Adaptive" },
+          { "text": "Start fresh in each domain, with minimal crossover", "value": "Compartmentalized" },
+          { "text": "Use analogies and metaphors to bridge different areas", "value": "Metaphorical" }
+        ],
+        "presentation": "Render as radio buttons."
+      },
+      {
+        "id": "Q15",
+        "parameter": "Learning-Reflection",
+        "type": "text",
+        "prompt": "Describe a specific instance where you struggled to learn something but eventually succeeded. What specific strategies made the difference, and how has this experience affected your approach to learning new things?",
+        "presentation": "Render as a large text area input."
+      },
+      {
+        "id": "Q16",
+        "parameter": "LearningEfficiency-TimeOfDay",
+        "type": "MCQ",
+        "prompt": "During which time of day do you typically learn new skills most effectively?",
+        "options": [
+          { "text": "Early morning (5am-9am)", "value": "Morning" },
+          { "text": "Mid-day (10am-2pm)", "value": "Midday" },
+          { "text": "Afternoon (3pm-7pm)", "value": "Afternoon" },
+          { "text": "Evening/Night (8pm-12am)", "value": "Evening" }
+        ],
+        "presentation": "Render as radio buttons."
+      },
+      {
+        "id": "Q17",
+        "parameter": "LearningEfficiency-Duration",
+        "type": "MCQ",
+        "prompt": "What is your optimal duration for focused learning before needing a significant break?",
+        "options": [
+          { "text": "Short sessions (15-25 minutes)", "value": "Short" },
+          { "text": "Medium sessions (30-45 minutes)", "value": "Medium" },
+          { "text": "Long sessions (1-2 hours)", "value": "Long" },
+          { "text": "Extended deep work (2+ hours)", "value": "Extended" }
+        ],
+        "presentation": "Render as radio buttons."
+      },
+      {
+        "id": "Q18",
+        "parameter": "SkillAcquisition-Complexity",
+        "type": "MCQ",
+        "prompt": "When learning complex technical concepts, you typically:",
+        "options": [
+          { "text": "Grasp the big picture quickly, but need time for details", "value": "Holistic" },
+          { "text": "Build understanding incrementally, step by step", "value": "Sequential" },
+          { "text": "Need to experiment and apply concepts to understand them", "value": "Application" },
+          { "text": "Require clear examples before abstract explanations", "value": "ExampleFirst" }
+        ],
+        "presentation": "Render as radio buttons."
+      },
+      {
+        "id": "Q19",
+        "parameter": "ContextualLearning",
+        "type": "MCQ",
+        "prompt": "Which approach helps you most when learning a new skill for your job?",
+        "options": [
+          { "text": "Understanding how it connects to the broader organizational goals", "value": "Strategic" },
+          { "text": "Seeing exactly how it applies to my daily work tasks", "value": "Practical" },
+          { "text": "Learning from colleagues who already use this skill effectively", "value": "Social" },
+          { "text": "Having time to explore and experiment with the skill independently", "value": "Exploratory" }
+        ],
+        "presentation": "Render as radio buttons."
+      },
+      {
+        "id": "Q20",
+        "parameter": "CognitiveLoad-Management",
+        "type": "MCQ",
+        "prompt": "When learning material becomes overwhelming, which strategy works best for you?",
+        "options": [
+          { "text": "Take a break and return with fresh perspective", "value": "Refresh" },
+          { "text": "Break it down into smaller, manageable components", "value": "Decompose" },
+          { "text": "Seek out alternative explanations or resources", "value": "Alternate" },
+          { "text": "Discuss the material with someone else", "value": "Dialogue" }
+        ],
+        "presentation": "Render as radio buttons."
+      },
+      {
+        "id": "Q21",
+        "parameter": "Motivation-Drivers",
+        "type": "MCQ",
+        "prompt": "What most motivates you to learn new skills at work?",
+        "options": [
+          { "text": "Career advancement and new opportunities", "value": "Advancement" },
+          { "text": "Mastery and personal satisfaction from improvement", "value": "Mastery" },
+          { "text": "Recognition from peers and management", "value": "Recognition" },
+          { "text": "Contributing more effectively to team/company goals", "value": "Contribution" }
+        ],
+        "presentation": "Render as radio buttons."
+      },
+      {
+        "id": "Q22",
+        "parameter": "DistractionSensitivity",
+        "type": "MCQ",
+        "prompt": "How sensitive are you to distractions while learning?",
+        "options": [
+          { "text": "Highly sensitive - need complete quiet and focus", "value": "HighSensitivity" },
+          { "text": "Moderately sensitive - can filter minor distractions", "value": "ModerateSensitivity" },
+          { "text": "Slightly sensitive - only major interruptions affect learning", "value": "LowSensitivity" },
+          { "text": "Minimally affected - can learn effectively in varied environments", "value": "MinimalSensitivity" }
+        ],
+        "presentation": "Render as radio buttons."
+      },
+      {
+        "id": "Q23",
+        "parameter": "FeedbackTiming",
+        "type": "MCQ",
+        "prompt": "When do you prefer to receive feedback during the learning process?",
+        "options": [
+          { "text": "Immediately after each step or task", "value": "Immediate" },
+          { "text": "At predetermined checkpoints throughout the process", "value": "Interval" },
+          { "text": "Only when I request it or encounter difficulties", "value": "OnDemand" },
+          { "text": "After completing the entire learning module or project", "value": "Retrospective" }
+        ],
+        "presentation": "Render as radio buttons."
+      },
+      {
+        "id": "Q24",
+        "parameter": "PriorKnowledgeIntegration",
+        "type": "MCQ",
+        "prompt": "How do you typically integrate new information with your existing knowledge?",
+        "options": [
+          { "text": "Look for connections to what I already know and build bridges", "value": "Connective" },
+          { "text": "Reorganize my understanding to accommodate new information", "value": "Restructuring" },
+          { "text": "Keep new knowledge separate until I fully understand it", "value": "Compartmentalized" },
+          { "text": "Test new information against my existing knowledge for conflicts", "value": "Evaluative" }
+        ],
+        "presentation": "Render as radio buttons."
+      },
+      {
+        "id": "Q25",
+        "parameter": "LearningVelocity-Pattern",
+        "type": "MCQ",
+        "prompt": "When learning a new technical skill, which pattern typically describes your learning speed over time?",
+        "options": [
+          { "text": "Strong start with quick fundamentals, then gradual slowing as complexity increases", "value": "FastStart" },
+          { "text": "Steady, consistent pace from beginning to end regardless of complexity", "value": "SteadyPace" },
+          { "text": "Careful, slower start, then accelerating as concepts connect and make sense", "value": "SlowStart" },
+          { "text": "Variable pace that adjusts based on the specific content difficulty", "value": "AdaptivePace" }
+        ],
+        "presentation": "Render as radio buttons."
+      },
+      {
+        "id": "Q26",
+        "parameter": "LearningVelocity-Timeframe",
+        "type": "MCQ",
+        "prompt": "When estimating how long it will take you to learn a new skill, how accurate are your predictions?",
+        "options": [
+          { "text": "Highly accurate (within 10% of actual time)", "value": "HighPrecision" },
+          { "text": "Moderately accurate (within 10-30% of actual time)", "value": "ModeratePrecision" },
+          { "text": "Limited accuracy (within 30-50% of actual time)", "value": "LowPrecision" },
+          { "text": "Difficult to predict (often off by more than 50%)", "value": "VeryLowPrecision" }
+        ],
+        "presentation": "Render as radio buttons."
+      },
+      {
+        "id": "Q27",
+        "parameter": "LearningVelocity-Retention",
+        "type": "MCQ",
+        "prompt": "How does the speed at which you learn affect your ability to retain that knowledge long-term?",
+        "options": [
+          { "text": "Quick learning leads to better retention for me", "value": "FastAndRetain" },
+          { "text": "Slower, deliberate learning improves my retention", "value": "SlowAndRetain" },
+          { "text": "My learning speed doesn't affect my retention ability", "value": "UnrelatedRetention" },
+          { "text": "Retention depends on the subject, not my learning speed", "value": "VariableRetention" }
+        ],
+        "presentation": "Render as radio buttons."
+      },
+      {
+        "id": "Q28",
+        "parameter": "LearningVelocity-Efficiency",
+        "type": "MCQ",
+        "prompt": "Which factor most significantly improves your learning speed for technical content?",
+        "options": [
+          { "text": "Clear visual explanations and diagrams", "value": "ContentQuality" },
+          { "text": "Immediate hands-on practice opportunities", "value": "PracticeOpportunity" },
+          { "text": "Relating new content to my existing knowledge", "value": "PriorKnowledge" },
+          { "text": "Distraction-free environment with focused time", "value": "FocusEnvironment" }
+        ],
+        "presentation": "Render as radio buttons."
+      },
+      {
+        "id": "Q29",
+        "parameter": "LearningVelocity-Measurement",
+        "type": "MCQ",
+        "prompt": "How do you best determine whether you've successfully learned something?",
+        "options": [
+          { "text": "Completing defined milestones or objectives", "value": "MilestoneTracking" },
+          { "text": "Successfully applying the knowledge in real situations", "value": "ApplicationTesting" },
+          { "text": "Ability to clearly explain the concept to someone else", "value": "TeachingEffectiveness" },
+          { "text": "Internal sense of confidence and comfort with the material", "value": "ConfidenceLevel" }
+        ],
+        "presentation": "Render as radio buttons."
+      },
+      {
+        "id": "Q30",
+        "parameter": "LearningStyle-ContextDependent",
+        "type": "MCQ",
+        "prompt": "Your learning preferences may vary by subject. When specifically learning MATHEMATICAL concepts, which approach do you most prefer?",
+        "options": [
+          { "text": "Visual representations of equations, graphs, and visual models to understand mathematical relationships.", "value": "Visual" },
+          { "text": "Listening to step-by-step verbal explanations of mathematical processes and talking through problems aloud.", "value": "Auditory" },
+          { "text": "Working through many example problems hands-on and using physical manipulatives or interactive simulations.", "value": "Kinesthetic" },
+          { "text": "Reading mathematical theory and writing out detailed solution steps while taking thorough notes.", "value": "ReadWrite" }
+        ],
+        "presentation": "Render as radio buttons."
+      },
+      {
+        "id": "Q31",
+        "parameter": "LearningStyle-MultimodalPreferences",
+        "type": "MCQ",
+        "prompt": "Many people learn best through multiple approaches combined. Which combination of learning modes works best for you?",
+        "options": [
+          { "text": "Visual and Kinesthetic: I learn best with visual demonstrations followed by hands-on practice.", "value": { "Visual": 0.6, "Kinesthetic": 0.4 } },
+          { "text": "Auditory and Read/Write: I learn best by listening to explanations while taking notes.", "value": { "Auditory": 0.6, "ReadWrite": 0.4 } },
+          { "text": "Visual and Read/Write: I learn best by reading materials with visual aids and diagrams.", "value": { "Visual": 0.5, "ReadWrite": 0.5 } },
+          { "text": "Kinesthetic and Auditory: I learn best through physical activity combined with verbal instructions.", "value": { "Kinesthetic": 0.7, "Auditory": 0.3 } }
+        ],
+        "presentation": "Render as radio buttons."
+      },
+      {
+        "id": "Q32",
+        "parameter": "LearningStyle-Technology",
+        "type": "MCQ",
+        "prompt": "When using digital learning platforms, which features most enhance your learning experience?",
+        "options": [
+          { "text": "High-quality visualizations, videos, animations, and visual simulations.", "value": "Visual" },
+          { "text": "Audio lectures, recorded discussions, and voice explanations with pronunciation guides.", "value": "Auditory" },
+          { "text": "Interactive elements, clickable exercises, drag-and-drop activities, and practice simulations.", "value": "Kinesthetic" },
+          { "text": "Comprehensive text resources, downloadable documents, and note-taking capabilities.", "value": "ReadWrite" }
+        ],
+        "presentation": "Render as radio buttons."
+      },
+      {
+        "id": "Q33",
+        "parameter": "LearningStyle-LogicalProcessing",
+        "type": "MCQ",
+        "prompt": "When solving complex logical problems or troubleshooting issues, how do you prefer to process information?",
+        "options": [
+          { "text": "Visualize the problem structure using diagrams, flowcharts, or mental imagery to map out solutions.", "value": { "Visual": 0.7, "Kinesthetic": 0.2, "ReadWrite": 0.1 } },
+          { "text": "Talk through the problem verbally, discussing options aloud and hearing different perspectives.", "value": { "Auditory": 0.8, "Visual": 0.1, "ReadWrite": 0.1 } },
+          { "text": "Try different approaches hands-on, testing solutions practically to see what works.", "value": { "Kinesthetic": 0.8, "Visual": 0.1, "Auditory": 0.1 } },
+          { "text": "Write down the problem components systematically, listing options and analyzing them in written form.", "value": { "ReadWrite": 0.7, "Visual": 0.2, "Auditory": 0.1 } }
+        ],
+        "presentation": "Render as radio buttons."
+      },
+      {
+        "id": "Q34",
+        "parameter": "LearningStyle-SelfAssessment",
+        "type": "MCQ",
+        "prompt": "Based on your previous learning experiences, which learning style do you believe works best for you overall?",
+        "options": [
+          { "text": "Visual: I learn best when information is presented visually with images, diagrams, and demonstrations.", "value": "Visual" },
+          { "text": "Auditory: I learn best when listening to explanations, discussions, and verbal instructions.", "value": "Auditory" },
+          { "text": "Kinesthetic: I learn best through hands-on activities, practice, and physical engagement with materials.", "value": "Kinesthetic" },
+          { "text": "Read/Write: I learn best through reading text and writing notes, summaries, and outlines.", "value": "ReadWrite" },
+          { "text": "Multimodal: I learn equally well through a combination of different styles depending on the context.", "value": "Multimodal" }
+        ],
+        "presentation": "Render as radio buttons."
+      }
+    ],
+    "resources": [
+      {
+        "id": "img1",
+        "type": "image",
+        "url": "https://assets.example.com/learning_methods_infographic.jpg",
+        "alt": "Infographic showing different learning methods with visual, auditory, and kinesthetic elements",
+        "description": "Open-source image from Unsplash"
+      },
+      {
+        "id": "aud1",
+        "type": "audio",
+        "url": "https://assets.example.com/complex_explanation.mp3",
+        "alt": "Audio explanation of a complex topic with multiple elements",
+        "description": "Open-source audio resource from FreeSound"
+      },
+      {
+        "id": "img2",
+        "type": "image",
+        "url": "https://assets.example.com/problem_solving_pathways.jpg",
+        "alt": "Diagram showing different problem-solving approaches and pathways",
+        "description": "Open-source image resource"
+      },
+      {
+        "id": "int1",
+        "type": "interactive",
+        "component": "LearningSpeedTest",
+        "description": "Interactive component for measuring information processing speed across different modalities"
+      },
+      {
+        "id": "vid1",
+        "type": "video",
+        "url": "https://assets.example.com/cognitive_load_demo.mp4",
+        "alt": "Demonstration of different cognitive load scenarios",
+        "description": "Open-source video resource for cognitive assessment"
+      }
+    ],
+    "metadata": {
+      "version": "2.1",
+      "lastUpdated": "2025-05-07",
+      "assessmentDuration": "20-25 minutes",
+      "primaryParameters": [
+        "LearningStyle",
+        "HoneyMumford",
+        "LearningEfficiency", 
+        "SkillAcquisition",
+        "CognitiveLoad",
+        "Motivation"
+      ],
+      "compatibleWith": [
+        "TechnicalSkillGapAnalysis-v3.2",
+        "CompetencyMatrix-v2.1",
+        "AdaptiveLearningEngine-v4.0"
+      ]
+    }
+  }
+}
