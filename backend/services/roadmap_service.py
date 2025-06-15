@@ -6,6 +6,7 @@ from crewai import Agent, Task, Crew, Process
 from crewai.tools import BaseTool
 from dotenv import load_dotenv
 import openai
+import requests  # <-- Add this import
 
 # Load environment variables from .env file
 load_dotenv()
@@ -186,8 +187,8 @@ class LearningRoadmapAgents:
     def resource_discovery_agent(self):
         return Agent(
             role='Content Curator',
-            goal='Find, evaluate, and curate high-quality learning resources for each skill gap. Match resources to learning styles and skill levels, providing diverse content types (videos, articles, courses, practice exercises).',
-            backstory='You are a digital learning librarian with extensive knowledge of educational platforms, courses, and resources. You excel at finding the perfect learning materials for specific skills and learning preferences.',
+            goal='Find and evaluate learning resources for each prioritized gap, matching user learning style and gap severity.',
+            backstory='You are a digital librarian with expertise in educational content discovery. You find the best resources for each skill gap and learning style.',
             tools=[self.web_search_tool, self.openai_tool],
             verbose=True,
             allow_delegation=False
@@ -341,6 +342,14 @@ class LearningRoadmapCrew:
 
         return roadmap_data
 
+    def _is_valid_url(self, url):
+        """Check if a URL is reachable (status 200)."""
+        try:
+            resp = requests.head(url, allow_redirects=True, timeout=5)
+            return resp.status_code == 200
+        except Exception:
+            return False
+
     def _process_crew_results(self, task_outputs):
         # Extract structured data from task outputs
         skill_gaps = {}
@@ -363,15 +372,18 @@ class LearningRoadmapCrew:
         # Try to extract resources from resource discovery output
         resource_output = task_outputs.get("resource_discovery_task", "")
         if "http" in resource_output:
-            # Simple URL extraction
             import re
             urls = re.findall(r'https?://[^\s]+', resource_output)
             for url in urls:
-                curated_resources.append({
-                    "title": f"Learning Resource",
-                    "url": url,
-                    "description": "Curated learning resource"
-                })
+                if self._is_valid_url(url):
+                    curated_resources.append({
+                        "title": f"Learning Resource",
+                        "url": url,
+                        "description": "Curated learning resource"
+                    })
+                else:
+                    # Optionally, you can log or flag invalid URLs
+                    print(f"[DEBUG] Skipping invalid resource URL: {url}")
 
         return {
             "title": "Personalized Learning Roadmap",
